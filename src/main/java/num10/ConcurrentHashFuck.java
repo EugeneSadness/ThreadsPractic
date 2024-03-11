@@ -1,3 +1,5 @@
+package num10;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;

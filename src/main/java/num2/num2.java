@@ -1,4 +1,6 @@
-public class num31 extends Thread{
+package num2;
+
+public class num2 extends Thread {
     @Override
     public void run() {
         try {

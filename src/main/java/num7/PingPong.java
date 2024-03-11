@@ -1,3 +1,5 @@
+package num7;
+
 public class PingPong{
 
     public synchronized void ping() throws InterruptedException {
