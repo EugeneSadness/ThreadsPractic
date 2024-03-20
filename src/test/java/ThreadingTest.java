@@ -110,8 +110,8 @@ public class ThreadingTest {
         };
         Thread pingThread = new Thread(ping);
         Thread pongThread = new Thread(pong);
-        pingThread.start();
         pongThread.start();
+        pingThread.start();
     }
 
     @Test
@@ -196,32 +196,30 @@ public class ThreadingTest {
         ping.start();
     }
 
+
     @Test
     public void num10() throws InterruptedException {
         ConcurrentHashFuck<Integer, String> map = new ConcurrentHashFuck<>();
-        Thread[] writeThreads = new Thread[5];
+        String rand = "rand";
+        Thread writeThreads = new Thread(() -> {
+            map.put(1, rand);
+            System.out.println("Writing");
+        });
         Thread[] readThreads = new Thread[5];
+        Thread sizeThread = new Thread(() -> {
+            map.size();
+            System.out.println("sizing");
+        });
+
+        writeThreads.start();
         for (int i = 0; i < 5; i++) {
-            Integer finalI = i;
-            writeThreads[i] = new Thread(() -> {
-                map.put(finalI, "fuck" + finalI);
-                System.out.println("Map size: " + map.size());
-            });
-            writeThreads[i].start();
-        }
-
-        for(int i = 0; i < 5; i++){
-            writeThreads[i].join();
-        }
-
-        for (int i = 0; i < 5; i++) {
-            Integer finalI = i;
-
             readThreads[i] = new Thread(() -> {
-                System.out.println(map.get(finalI));
+                System.out.println(map.get(1));
             });
             readThreads[i].start();
         }
+        sizeThread.start();
+
     }
 
     @Test

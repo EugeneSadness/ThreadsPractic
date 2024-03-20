@@ -30,20 +30,20 @@ public class ConcurrentHashFuck<K, V> {
     }
 
     public void remove(int n) {
-        readLock.lock();
+        writeLock.lock();
         try {
             map.remove(n);
         } finally {
-            readLock.unlock();
+            writeLock.unlock();
         }
     }
 
     public int size() {
-        writeLock.lock();
+        readLock.lock();
         try {
             return map.size();
         } finally {
-            writeLock.unlock();
+            readLock.unlock();
         }
     }
 
